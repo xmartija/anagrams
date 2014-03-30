@@ -10,10 +10,10 @@ import java.util.Set;
 
 public class StringPermutator {
 
-    private String input;
-    private int min;
-    private final Map< String, Set< String >> dictionaryMap;
-    private Set< String > permutationSet;
+    protected String input;
+    protected int min;
+    protected final Map< String, Set< String >> dictionaryMap;
+    protected Set< String > permutationSet;
 
     public StringPermutator( Map< String, Set< String >> m ) {
         this.dictionaryMap = new HashMap< String, Set< String >>( m );
@@ -54,22 +54,26 @@ public class StringPermutator {
         this.min = min;
         permutationSet = new HashSet< String >();
         generatePermutations( StringAlphabetizer.alphabetize( input ) );
+        return getIntersectionValues();
+    }
+
+    protected Collection< Set< String >> getIntersectionValues() {
         Map< String, Set< String >> copy = new HashMap< String, Set< String >>( dictionaryMap );
         copy.keySet().retainAll( permutationSet );
         return copy.values();
     }
 
-    private void generatePermutations( String inputString ) {
+    protected void generatePermutations( String inputString ) {
 
         permutationSet.add( inputString );
-        if ( inputString.length() > min ) {
+        if ( inputString.length() > min && inputString.length() > 1 ) {
             permutate( inputString );
         }
     }
 
-    private void permutate( String inputString ) {
+    protected void permutate( String inputString ) {
         StringBuffer stringBuffer = new StringBuffer( inputString );
-        for ( int charPosToRemove = 0; ( charPosToRemove < stringBuffer.length() - 1 ); charPosToRemove++ ) {
+        for ( int charPosToRemove = 0; ( charPosToRemove < stringBuffer.length() ); charPosToRemove++ ) {
             generatePermutations( new StringBuffer( stringBuffer ).deleteCharAt( charPosToRemove )
                                                                   .toString() );
         }
