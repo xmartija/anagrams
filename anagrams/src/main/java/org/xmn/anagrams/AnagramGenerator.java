@@ -11,7 +11,7 @@ public class AnagramGenerator {
     protected Map< String, Set< String >> anagramsMap;
 
     public AnagramGenerator( String path, int min, int max ) {
-        DictionaryProcessor.dictionaryToAnagramsMap( path, min, max );
+        anagramsMap = DictionaryProcessor.dictionaryToAnagramsMap( path, min, max );
     }
 
     public Collection< Set< String >> generate( String input ) {
