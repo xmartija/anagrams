@@ -10,6 +10,15 @@ import java.util.Set;
 
 public class StringPermutator {
 
+    private String input;
+    private int min;
+    private final Map< String, Set< String >> dictionaryMap;
+    private Set< String > permutationSet;
+
+    public StringPermutator( Map< String, Set< String >> m ) {
+        this.dictionaryMap = new HashMap< String, Set< String >>( m );
+    }
+
     /**
      * Generates a collection of sets with the permuted anagrams.f.e: from
      * "aelrst" will generate: "alerts" ,"least","seat","tea","as" etc if the
@@ -22,9 +31,8 @@ public class StringPermutator {
      *            mapped anagrams
      * @return collection of sets of anagrams
      */
-    public static Collection< Set< String >> getPermutedAnagrams(
-            String input, Map< String, Set< String >> m ) {
-        return getPermutedAnagrams( input, m, 0 );
+    public Collection< Set< String >> getPermutedAnagrams( String input ) {
+        return getPermutedAnagrams( input, 0 );
     }
 
     /**
@@ -41,29 +49,29 @@ public class StringPermutator {
      *            of the output anagrams
      * @return collection of sets of anagrams
      */
-    public static Collection< Set< String >> getPermutedAnagrams(
-            String input, Map< String, Set< String >> m, int minLength ) {
-        Set< String > permSet = getPermutations( StringAlphabetizer.alphabetize( input ), minLength );
-        Map< String, Set< String >> returnmap = new HashMap< String, Set< String >>( m );
-        returnmap.keySet().retainAll( permSet );
-        return returnmap.values();
-
+    public Collection< Set< String >> getPermutedAnagrams( String input, int min ) {
+        this.input = input;
+        this.min = min;
+        permutationSet = new HashSet< String >();
+        generatePermutations( StringAlphabetizer.alphabetize( input ) );
+        Map< String, Set< String >> copy = new HashMap< String, Set< String >>( dictionaryMap );
+        copy.keySet().retainAll( permutationSet );
+        return copy.values();
     }
 
-    private static Set< String > getPermutations( String inputString, int minLength ) {
-        Set< String > returnSet = new HashSet< String >();
+    private void generatePermutations( String inputString ) {
 
-        returnSet.add( inputString );
-        if ( inputString.length() > minLength ) {
-            StringBuffer stringBuffer = new StringBuffer( inputString );
-            for ( int charPosToRemove = 0; ( charPosToRemove < stringBuffer.length() - 1 ); charPosToRemove++ ) {
-                // \r
-                returnSet.addAll( getPermutations( new StringBuffer( stringBuffer ).deleteCharAt( charPosToRemove )
-                                                                                   .toString(),
-                                                   minLength ) );
-            }
+        permutationSet.add( inputString );
+        if ( inputString.length() > min ) {
+            permutate( inputString );
         }
-        return returnSet;
     }
 
+    private void permutate( String inputString ) {
+        StringBuffer stringBuffer = new StringBuffer( inputString );
+        for ( int charPosToRemove = 0; ( charPosToRemove < stringBuffer.length() - 1 ); charPosToRemove++ ) {
+            generatePermutations( new StringBuffer( stringBuffer ).deleteCharAt( charPosToRemove )
+                                                                  .toString() );
+        }
+    }
 }

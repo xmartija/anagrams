@@ -15,7 +15,6 @@ public class AnagramGenerator {
     }
 
     public Collection< Set< String >> generate( String input ) {
-        return StringPermutator.getPermutedAnagrams( input, anagramsMap, 3 );
+        return new StringPermutator( anagramsMap ).getPermutedAnagrams( input, 3 );
     }
-
 }
