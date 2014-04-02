@@ -1,7 +1,7 @@
 anagrams
 ========
 
-A programI used to cheat on the game "word challenge" and that was a good exercise on Java Collections
+A program I used to cheat on the game "word challenge" and that was a good exercise on Java Collections
 
 
 Goals:
