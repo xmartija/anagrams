@@ -16,6 +16,7 @@ public class AlphabetizedString {
 
     @Override
     public int hashCode() {
+        // used in maps
         return internalString.hashCode();
     }
 }
