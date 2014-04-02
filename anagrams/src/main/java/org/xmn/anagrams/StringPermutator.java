@@ -11,11 +11,11 @@ public class StringPermutator {
 
     protected String input;
     protected int min;
-    protected final Map< String, Set< String >> dictionaryMap;
+    protected final Map< AlphabetizedString, Set< String >> dictionaryMap;
     protected Set< String > permutationSet;
 
-    public StringPermutator( Map< String, Set< String >> m ) {
-        this.dictionaryMap = new HashMap< String, Set< String >>( m );
+    public StringPermutator( Map< AlphabetizedString, Set< String >> m ) {
+        this.dictionaryMap = new HashMap< AlphabetizedString, Set< String >>( m );
     }
 
     /**
@@ -57,7 +57,8 @@ public class StringPermutator {
     }
 
     protected Set< Set< String >> getIntersectionValues() {
-        Map< String, Set< String >> copy = new HashMap< String, Set< String >>( dictionaryMap );
+        Map< AlphabetizedString, Set< String >> copy = new HashMap< AlphabetizedString, Set< String >>(
+                                                                                                        dictionaryMap );
         copy.keySet().retainAll( permutationSet );
         // We can be certain that any word belongs only to one alphabetized key.
         // for the same reason, every set of the value list is unique

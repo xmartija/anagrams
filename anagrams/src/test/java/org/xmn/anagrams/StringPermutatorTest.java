@@ -17,35 +17,42 @@ public class StringPermutatorTest {
 
     @Test
     public void testStringPermutatorNotNull() {
-        StringPermutator sp = new StringPermutator( new HashMap< String, Set< String >>() );
+        StringPermutator sp = new StringPermutator(
+                                                    new HashMap< AlphabetizedString, Set< String >>() );
         assertNotNull( sp.dictionaryMap );
 
     }
 
     @Test
     public void testGetPermutedAnagramsString() {
-        StringPermutator sp = new StringPermutator( new HashMap< String, Set< String >>() );
+        StringPermutator sp = new StringPermutator(
+                                                    new HashMap< AlphabetizedString, Set< String >>() );
 
-        sp.dictionaryMap.put( "a", new HashSet< String >( Arrays.asList( "a" ) ) );
-        sp.dictionaryMap.put( "acr", new HashSet< String >( Arrays.asList( "car", "arc", "rac" ) ) );
-        sp.dictionaryMap.put( "acirt",
+        sp.dictionaryMap.put( new AlphabetizedString( "a" ),
+                              new HashSet< String >( Arrays.asList( "a" ) ) );
+        sp.dictionaryMap.put( new AlphabetizedString( "acr" ),
+                              new HashSet< String >( Arrays.asList( "car", "arc", "rac" ) ) );
+        sp.dictionaryMap.put( new AlphabetizedString( "acirt" ),
                               new HashSet< String >( Arrays.asList( "artic", "cratic", "critar" ) ) );
-        sp.dictionaryMap.put( "fgor",
+        sp.dictionaryMap.put( new AlphabetizedString( "fgor" ),
                               new HashSet< String >( Arrays.asList( "grof", "forg", "frog" ) ) );
 
-        assertEquals( new HashSet( sp.getPermutedAnagrams( "artic" ) ),
-                      new HashSet( sp.getPermutedAnagrams( "artic", 0 ) ) );
+        assertEquals( new HashSet< Set< String >>( sp.getPermutedAnagrams( "artic" ) ),
+                      new HashSet< Set< String >>( sp.getPermutedAnagrams( "artic", 0 ) ) );
     }
 
     @Test
     public void testGetPermutedAnagramsFGOR() {
-        StringPermutator sp = new StringPermutator( new HashMap< String, Set< String >>() );
+        StringPermutator sp = new StringPermutator(
+                                                    new HashMap< AlphabetizedString, Set< String >>() );
 
-        sp.dictionaryMap.put( "a", new HashSet< String >( Arrays.asList( "a" ) ) );
-        sp.dictionaryMap.put( "acr", new HashSet< String >( Arrays.asList( "car", "arc", "rac" ) ) );
-        sp.dictionaryMap.put( "acirt",
+        sp.dictionaryMap.put( new AlphabetizedString( "a" ),
+                              new HashSet< String >( Arrays.asList( "a" ) ) );
+        sp.dictionaryMap.put( new AlphabetizedString( "acr" ),
+                              new HashSet< String >( Arrays.asList( "car", "arc", "rac" ) ) );
+        sp.dictionaryMap.put( new AlphabetizedString( "acirt" ),
                               new HashSet< String >( Arrays.asList( "artic", "cratic", "critar" ) ) );
-        sp.dictionaryMap.put( "fgor",
+        sp.dictionaryMap.put( new AlphabetizedString( "fgor" ),
                               new HashSet< String >( Arrays.asList( "grof", "forg", "frog" ) ) );
 
         // TODO assertTrue( sp.getPermutedAnagrams( "fgor" ). );
@@ -53,7 +60,8 @@ public class StringPermutatorTest {
 
     @Test
     public void testGetPermutedAnagramsStringInt() {
-        StringPermutator sp = new StringPermutator( new HashMap< String, Set< String >>() );
+        StringPermutator sp = new StringPermutator(
+                                                    new HashMap< AlphabetizedString, Set< String >>() );
         sp.permutationSet = new HashSet< String >();
         sp.getPermutedAnagrams( "aca", 2 );
         assertEquals( new HashSet< String >( Arrays.asList( "aac", "aa", "ac" ) ),
@@ -62,7 +70,8 @@ public class StringPermutatorTest {
 
     @Test
     public void testGeneratePermutationsACA() {
-        StringPermutator sp = new StringPermutator( new HashMap< String, Set< String >>() );
+        StringPermutator sp = new StringPermutator(
+                                                    new HashMap< AlphabetizedString, Set< String >>() );
         sp.permutationSet = new HashSet< String >();
         sp.generatePermutations( "aca" );
         assertEquals( new HashSet< String >( Arrays.asList( "ca", "c", "a", "ac", "aa", "aca" ) ),
@@ -71,7 +80,8 @@ public class StringPermutatorTest {
 
     @Test
     public void testGeneratePermutationsCAA() {
-        StringPermutator sp = new StringPermutator( new HashMap< String, Set< String >>() );
+        StringPermutator sp = new StringPermutator(
+                                                    new HashMap< AlphabetizedString, Set< String >>() );
         sp.permutationSet = new HashSet< String >();
         sp.generatePermutations( "caa" );
         assertEquals( new HashSet< String >( Arrays.asList( "ca", "c", "a", "aa", "caa" ) ),
@@ -80,7 +90,8 @@ public class StringPermutatorTest {
 
     @Test
     public void testGeneratePermutationsACAAlphabetized() {
-        StringPermutator sp = new StringPermutator( new HashMap< String, Set< String >>() );
+        StringPermutator sp = new StringPermutator(
+                                                    new HashMap< AlphabetizedString, Set< String >>() );
         sp.permutationSet = new HashSet< String >();
         sp.generatePermutations( StringAlphabetizer.alphabetize( "aca" ) );
         assertEquals( new HashSet< String >( Arrays.asList( "aa", "a", "ac", "c", "aac" ) ),
@@ -89,7 +100,8 @@ public class StringPermutatorTest {
 
     @Test
     public void testGeneratePermutationsACAAlphabetizedAndCapital() {
-        StringPermutator sp = new StringPermutator( new HashMap< String, Set< String >>() );
+        StringPermutator sp = new StringPermutator(
+                                                    new HashMap< AlphabetizedString, Set< String >>() );
         sp.permutationSet = new HashSet< String >();
         sp.generatePermutations( StringAlphabetizer.alphabetize( "ACA" ) );
         assertEquals( new HashSet< String >( Arrays.asList( "AA", "A", "AC", "C", "AAC" ) ),
@@ -98,7 +110,8 @@ public class StringPermutatorTest {
 
     @Test
     public void testGetSubPermutations() {
-        StringPermutator sp = new StringPermutator( new HashMap< String, Set< String >>() );
+        StringPermutator sp = new StringPermutator(
+                                                    new HashMap< AlphabetizedString, Set< String >>() );
         sp.permutationSet = new HashSet< String >();
         sp.getSubPermutations( "ACA" );
         assertEquals( new HashSet< String >( Arrays.asList( "AA", "A", "AC", "C", "CA" ) ),
@@ -107,12 +120,14 @@ public class StringPermutatorTest {
 
     @Test
     public void getIntersectionValuesTest() {
-        StringPermutator sp = new StringPermutator( new HashMap< String, Set< String >>() );
+        StringPermutator sp = new StringPermutator(
+                                                    new HashMap< AlphabetizedString, Set< String >>() );
         sp.permutationSet = new HashSet< String >( Arrays.asList( "acr", "ac", "ar", "cr" ) );
-        sp.dictionaryMap.put( "acr", new HashSet< String >( Arrays.asList( "car", "arc", "rac" ) ) );
-        sp.dictionaryMap.put( "artic",
+        sp.dictionaryMap.put( new AlphabetizedString( "acr" ),
+                              new HashSet< String >( Arrays.asList( "car", "arc", "rac" ) ) );
+        sp.dictionaryMap.put( new AlphabetizedString( "artic" ),
                               new HashSet< String >( Arrays.asList( "artic", "cratic", "critar" ) ) );
-        sp.dictionaryMap.put( "frog",
+        sp.dictionaryMap.put( new AlphabetizedString( "frog" ),
                               new HashSet< String >( Arrays.asList( "grof", "forg", "frog" ) ) );
 
         Map< String, Set< String >> expected = new HashMap< String, Set< String >>();
