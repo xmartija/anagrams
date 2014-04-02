@@ -1,7 +1,6 @@
 package org.xmn.anagrams;
 
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -31,7 +30,7 @@ public class StringPermutator {
      *            mapped anagrams
      * @return collection of sets of anagrams
      */
-    public Collection< Set< String >> getPermutedAnagrams( String input ) {
+    public Set< Set< String >> getPermutedAnagrams( String input ) {
         return getPermutedAnagrams( input, 0 );
     }
 
@@ -49,7 +48,7 @@ public class StringPermutator {
      *            of the output anagrams
      * @return collection of sets of anagrams
      */
-    public Collection< Set< String >> getPermutedAnagrams( String input, int min ) {
+    public Set< Set< String >> getPermutedAnagrams( String input, int min ) {
         this.input = input;
         this.min = min;
         permutationSet = new HashSet< String >();
@@ -57,21 +56,23 @@ public class StringPermutator {
         return getIntersectionValues();
     }
 
-    protected Collection< Set< String >> getIntersectionValues() {
+    protected Set< Set< String >> getIntersectionValues() {
         Map< String, Set< String >> copy = new HashMap< String, Set< String >>( dictionaryMap );
         copy.keySet().retainAll( permutationSet );
-        return copy.values();
+        // We can be certain that any word belongs only to one alphabetized key.
+        // for the same reason, every set of the value list is unique
+        return new HashSet< Set< String >>( copy.values() );
     }
 
     protected void generatePermutations( String inputString ) {
 
         permutationSet.add( inputString );
         if ( inputString.length() > min && inputString.length() > 1 ) {
-            permutate( inputString );
+            getSubPermutations( inputString );
         }
     }
 
-    protected void permutate( String inputString ) {
+    protected void getSubPermutations( String inputString ) {
         StringBuffer stringBuffer = new StringBuffer( inputString );
         for ( int charPosToRemove = 0; ( charPosToRemove < stringBuffer.length() ); charPosToRemove++ ) {
             generatePermutations( new StringBuffer( stringBuffer ).deleteCharAt( charPosToRemove )
