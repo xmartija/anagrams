@@ -1,20 +1,19 @@
 package org.xmn.anagrams;
 
 
-import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 
 
 public class AnagramGenerator {
 
-    protected Map< String, Set< String >> anagramsMap;
+    protected Map< AlphabetizedString, Set< String >> anagramsMap;
 
     public AnagramGenerator( String path, int min, int max ) {
         anagramsMap = DictionaryProcessor.dictionaryToAnagramsMap( path, min, max );
     }
 
-    public Collection< Set< String >> generate( String input ) {
+    public Set< Set< String >> generate( String input ) {
         return new StringPermutator( anagramsMap ).getPermutedAnagrams( input, 3 );
     }
 }

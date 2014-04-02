@@ -20,7 +20,8 @@ public class DictionaryProcessor {
      *            path to the dictionary.The dictionary is a list of words.
      * @return a Map with <alphabetized String><Set of anagrams> entries.
      */
-    public static Map< String, Set< String >> dictionaryToAnagramsMap( String pathDictionary ) {
+    public static Map< AlphabetizedString, Set< String >> dictionaryToAnagramsMap(
+            String pathDictionary ) {
         return dictionaryToAnagramsMap( pathDictionary, 0, Integer.MAX_VALUE );
     }
 
@@ -36,16 +37,16 @@ public class DictionaryProcessor {
      *            max length of the words that are going to be mapped.
      * @return a Map with <alphabetized String><Set of anagrams> entries.
      */
-    public static Map< String, Set< String >> dictionaryToAnagramsMap(
+    public static Map< AlphabetizedString, Set< String >> dictionaryToAnagramsMap(
             String pathDictionary, int minLength, int maxLength ) {
 
-        Map< String, Set< String >> m = new HashMap< String, Set< String >>();
+        Map< AlphabetizedString, Set< String >> m = new HashMap< AlphabetizedString, Set< String >>();
         try {
             Scanner s = new Scanner( new File( pathDictionary ) );
             while ( s.hasNext() ) {
                 String word = s.next();
                 if ( word.length() >= minLength && word.length() <= maxLength ) {
-                    String alpha = StringAlphabetizer.alphabetize( word );
+                    AlphabetizedString alpha = new AlphabetizedString( word );
                     Set< String > l = m.get( alpha );
                     if ( l == null ) {
                         m.put( alpha, l = new HashSet< String >() );
@@ -53,6 +54,7 @@ public class DictionaryProcessor {
                     l.add( word );
                 }
             }
+            s.close();
         } catch ( IOException e ) {
             System.err.println( "Error reading your Dictionary" );
             System.err.println( e );
